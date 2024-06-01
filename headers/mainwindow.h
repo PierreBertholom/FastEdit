@@ -50,7 +50,15 @@ private slots:
 
     void on_actionOpen_Folder_triggered();
 
+    void openFolder(const QString &dirPath);
+
     void openTreeViewFile(QModelIndex index);
+
+    void dragEnterEvent(QDragEnterEvent *event) override;
+
+    void dragMoveEvent(QDragMoveEvent *event) override;
+
+    void dropEvent(QDropEvent *event) override;
 
 private:
     Ui::MainWindow *ui;

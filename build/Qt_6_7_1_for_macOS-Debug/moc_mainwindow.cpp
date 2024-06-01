@@ -55,8 +55,17 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "on_actionSave_As_triggered",
     "updateStatus",
     "on_actionOpen_Folder_triggered",
+    "openFolder",
+    "dirPath",
     "openTreeViewFile",
-    "QModelIndex"
+    "QModelIndex",
+    "dragEnterEvent",
+    "QDragEnterEvent*",
+    "event",
+    "dragMoveEvent",
+    "QDragMoveEvent*",
+    "dropEvent",
+    "QDropEvent*"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -69,7 +78,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -77,20 +86,24 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   98,    2, 0x08,    1 /* Private */,
-       3,    0,   99,    2, 0x08,    2 /* Private */,
-       4,    1,  100,    2, 0x08,    3 /* Private */,
-       6,    0,  103,    2, 0x08,    5 /* Private */,
-       7,    0,  104,    2, 0x08,    6 /* Private */,
-       8,    1,  105,    2, 0x08,    7 /* Private */,
-      10,    0,  108,    2, 0x08,    9 /* Private */,
-      12,    0,  109,    2, 0x08,   10 /* Private */,
-      14,    0,  110,    2, 0x08,   11 /* Private */,
-      15,    0,  111,    2, 0x08,   12 /* Private */,
-      16,    0,  112,    2, 0x08,   13 /* Private */,
-      17,    0,  113,    2, 0x08,   14 /* Private */,
-      18,    0,  114,    2, 0x08,   15 /* Private */,
-      19,    1,  115,    2, 0x08,   16 /* Private */,
+       1,    0,  122,    2, 0x08,    1 /* Private */,
+       3,    0,  123,    2, 0x08,    2 /* Private */,
+       4,    1,  124,    2, 0x08,    3 /* Private */,
+       6,    0,  127,    2, 0x08,    5 /* Private */,
+       7,    0,  128,    2, 0x08,    6 /* Private */,
+       8,    1,  129,    2, 0x08,    7 /* Private */,
+      10,    0,  132,    2, 0x08,    9 /* Private */,
+      12,    0,  133,    2, 0x08,   10 /* Private */,
+      14,    0,  134,    2, 0x08,   11 /* Private */,
+      15,    0,  135,    2, 0x08,   12 /* Private */,
+      16,    0,  136,    2, 0x08,   13 /* Private */,
+      17,    0,  137,    2, 0x08,   14 /* Private */,
+      18,    0,  138,    2, 0x08,   15 /* Private */,
+      19,    1,  139,    2, 0x08,   16 /* Private */,
+      21,    1,  142,    2, 0x08,   18 /* Private */,
+      23,    1,  145,    2, 0x08,   20 /* Private */,
+      26,    1,  148,    2, 0x08,   22 /* Private */,
+      28,    1,  151,    2, 0x08,   24 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -106,7 +119,11 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 20,    5,
+    QMetaType::Void, QMetaType::QString,   20,
+    QMetaType::Void, 0x80000000 | 22,    5,
+    QMetaType::Void, 0x80000000 | 24,   25,
+    QMetaType::Void, 0x80000000 | 27,   25,
+    QMetaType::Void, 0x80000000 | 29,   25,
 
        0        // eod
 };
@@ -148,9 +165,21 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_actionOpen_Folder_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'openFolder'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
         // method 'openTreeViewFile'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<QModelIndex, std::false_type>
+        QtPrivate::TypeAndForceComplete<QModelIndex, std::false_type>,
+        // method 'dragEnterEvent'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QDragEnterEvent *, std::false_type>,
+        // method 'dragMoveEvent'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QDragMoveEvent *, std::false_type>,
+        // method 'dropEvent'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QDropEvent *, std::false_type>
     >,
     nullptr
 } };
@@ -176,7 +205,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->on_actionSave_As_triggered(); break;
         case 11: _t->updateStatus(); break;
         case 12: _t->on_actionOpen_Folder_triggered(); break;
-        case 13: _t->openTreeViewFile((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 13: _t->openFolder((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 14: _t->openTreeViewFile((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 15: _t->dragEnterEvent((*reinterpret_cast< std::add_pointer_t<QDragEnterEvent*>>(_a[1]))); break;
+        case 16: _t->dragMoveEvent((*reinterpret_cast< std::add_pointer_t<QDragMoveEvent*>>(_a[1]))); break;
+        case 17: _t->dropEvent((*reinterpret_cast< std::add_pointer_t<QDropEvent*>>(_a[1]))); break;
         default: ;
         }
     }
@@ -201,13 +234,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 18;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 18)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 14;
+        _id -= 18;
     }
     return _id;
 }

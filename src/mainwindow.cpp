@@ -8,7 +8,7 @@
 #include <QTextStream>
 #include <QList>
 #include <QFontDatabase>
-
+#include <QMimeData>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,11 +19,16 @@ MainWindow::MainWindow(QWidget *parent)
     // Initialization of tabs, centered, movable and closable
     tabsWidget->setMovable(true);
     tabsWidget->setTabsClosable(true);
+    tabsWidget->setAcceptDrops(true);
 
     setCentralWidget(window);
 
     treeView->setMaximumWidth(0);
     treeView->setMidLineWidth(0);
+    treeView->setDragEnabled(true);
+    treeView->setAcceptDrops(true);
+    treeView->setDragDropMode(QAbstractItemView::DragDrop);
+    treeView->setDropIndicatorShown(true);
 
     window->addWidget(treeView);
     window->addWidget(tabsWidget);
@@ -35,10 +40,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Import font
     QFontDatabase::addApplicationFont(":/fonts/SourceCodePro.ttf");
-
 }
 
-// Close MainWindow
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -189,7 +192,6 @@ void MainWindow::on_actionSave_File_triggered()
     tabsWidget->setTabText(tabsWidget->currentIndex(), newTabText);
 }
 
-
 void MainWindow::on_actionSave_As_triggered()
 {
     if (tabsWidget->count() == 0) {
@@ -243,11 +245,21 @@ void MainWindow::updateStatus()
 
 void MainWindow::on_actionOpen_Folder_triggered()
 {
-    // Dialog open folder + splitter
-    QUrl dirPath = QFileDialog::getExistingDirectory(this, "Open Folder", "/", QFileDialog::ShowDirsOnly);
-    dirModel->setRootPath(dirPath.toString());
+    QString dirPath = QFileDialog::getExistingDirectory(this, "Open Folder", "/", QFileDialog::ShowDirsOnly);
+    if (!dirPath.isEmpty()) {
+        openFolder(dirPath);
+    }
+}
+
+void MainWindow::openFolder(const QString &dirPath)
+{
+    if (dirPath.isEmpty()) {
+        return;
+    }
+
+    dirModel->setRootPath(dirPath);
     treeView->setModel(dirModel);
-    treeView->setRootIndex(dirModel->index(dirPath.toString()));
+    treeView->setRootIndex(dirModel->index(dirPath));
     // Hide useless columns such as size of file and date
     treeView->hideColumn(1);
     treeView->hideColumn(2);
@@ -256,13 +268,51 @@ void MainWindow::on_actionOpen_Folder_triggered()
     // Set minimum and maximum dimension
     treeView->setMinimumWidth(width() * 20 / 100);
     treeView->setMaximumWidth(width() * 30 / 100);
-
 }
+
 
 void MainWindow::openTreeViewFile(QModelIndex index)
 {
+    if (!dirModel->fileInfo(index).isFile()) {
+        return; // Ignore directories
+    }
+
     MainWindow::createTab();
     QString filePath = dirModel->fileInfo(index).absoluteFilePath();
 
     MainWindow::openTabFile(filePath);
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+    }
+}
+
+void MainWindow::dragMoveEvent(QDragMoveEvent *event)
+{
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent *event)
+{
+    const QMimeData *mimeData = event->mimeData();
+    if (mimeData->hasUrls()) {
+        QList<QUrl> urlList = mimeData->urls();
+        for (const QUrl &url : urlList) {
+            QString filePath = url.toLocalFile();
+            QFileInfo fileInfo(filePath);
+
+            if (fileInfo.isFile()) {
+                MainWindow::createTab();
+                MainWindow::openTabFile(filePath);
+            } else if (fileInfo.isDir()) {
+                openFolder(filePath);
+            }
+        }
+        event->acceptProposedAction();
+    }
 }
