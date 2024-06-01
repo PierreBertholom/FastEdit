@@ -67,7 +67,13 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "dropEvent",
     "QDropEvent*",
     "on_actionFind_Replace_triggered",
-    "on_actionFind_triggered"
+    "on_actionFind_triggered",
+    "on_actionUndo_triggered",
+    "on_actionRedo_triggered",
+    "on_actionCut_triggered",
+    "on_actionCopy_triggered",
+    "on_actionPaste_triggered",
+    "on_actionDelete_triggered"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -80,7 +86,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      20,   14, // methods
+      26,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -88,26 +94,32 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  134,    2, 0x08,    1 /* Private */,
-       3,    0,  135,    2, 0x08,    2 /* Private */,
-       4,    1,  136,    2, 0x08,    3 /* Private */,
-       6,    0,  139,    2, 0x08,    5 /* Private */,
-       7,    0,  140,    2, 0x08,    6 /* Private */,
-       8,    1,  141,    2, 0x08,    7 /* Private */,
-      10,    0,  144,    2, 0x08,    9 /* Private */,
-      12,    0,  145,    2, 0x08,   10 /* Private */,
-      14,    0,  146,    2, 0x08,   11 /* Private */,
-      15,    0,  147,    2, 0x08,   12 /* Private */,
-      16,    0,  148,    2, 0x08,   13 /* Private */,
-      17,    0,  149,    2, 0x08,   14 /* Private */,
-      18,    0,  150,    2, 0x08,   15 /* Private */,
-      19,    1,  151,    2, 0x08,   16 /* Private */,
-      21,    1,  154,    2, 0x08,   18 /* Private */,
-      23,    1,  157,    2, 0x08,   20 /* Private */,
-      26,    1,  160,    2, 0x08,   22 /* Private */,
-      28,    1,  163,    2, 0x08,   24 /* Private */,
-      30,    0,  166,    2, 0x08,   26 /* Private */,
-      31,    0,  167,    2, 0x08,   27 /* Private */,
+       1,    0,  170,    2, 0x08,    1 /* Private */,
+       3,    0,  171,    2, 0x08,    2 /* Private */,
+       4,    1,  172,    2, 0x08,    3 /* Private */,
+       6,    0,  175,    2, 0x08,    5 /* Private */,
+       7,    0,  176,    2, 0x08,    6 /* Private */,
+       8,    1,  177,    2, 0x08,    7 /* Private */,
+      10,    0,  180,    2, 0x08,    9 /* Private */,
+      12,    0,  181,    2, 0x08,   10 /* Private */,
+      14,    0,  182,    2, 0x08,   11 /* Private */,
+      15,    0,  183,    2, 0x08,   12 /* Private */,
+      16,    0,  184,    2, 0x08,   13 /* Private */,
+      17,    0,  185,    2, 0x08,   14 /* Private */,
+      18,    0,  186,    2, 0x08,   15 /* Private */,
+      19,    1,  187,    2, 0x08,   16 /* Private */,
+      21,    1,  190,    2, 0x08,   18 /* Private */,
+      23,    1,  193,    2, 0x08,   20 /* Private */,
+      26,    1,  196,    2, 0x08,   22 /* Private */,
+      28,    1,  199,    2, 0x08,   24 /* Private */,
+      30,    0,  202,    2, 0x08,   26 /* Private */,
+      31,    0,  203,    2, 0x08,   27 /* Private */,
+      32,    0,  204,    2, 0x08,   28 /* Private */,
+      33,    0,  205,    2, 0x08,   29 /* Private */,
+      34,    0,  206,    2, 0x08,   30 /* Private */,
+      35,    0,  207,    2, 0x08,   31 /* Private */,
+      36,    0,  208,    2, 0x08,   32 /* Private */,
+      37,    0,  209,    2, 0x08,   33 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -128,6 +140,12 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void, 0x80000000 | 24,   25,
     QMetaType::Void, 0x80000000 | 27,   25,
     QMetaType::Void, 0x80000000 | 29,   25,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -189,6 +207,18 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_actionFind_Replace_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_actionFind_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionUndo_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionRedo_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionCut_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionCopy_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionPaste_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_actionDelete_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -222,6 +252,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 17: _t->dropEvent((*reinterpret_cast< std::add_pointer_t<QDropEvent*>>(_a[1]))); break;
         case 18: _t->on_actionFind_Replace_triggered(); break;
         case 19: _t->on_actionFind_triggered(); break;
+        case 20: _t->on_actionUndo_triggered(); break;
+        case 21: _t->on_actionRedo_triggered(); break;
+        case 22: _t->on_actionCut_triggered(); break;
+        case 23: _t->on_actionCopy_triggered(); break;
+        case 24: _t->on_actionPaste_triggered(); break;
+        case 25: _t->on_actionDelete_triggered(); break;
         default: ;
         }
     }
@@ -246,13 +282,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 20)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 20;
+        _id -= 26;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 20)
+        if (_id < 26)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 20;
+        _id -= 26;
     }
     return _id;
 }

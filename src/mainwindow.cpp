@@ -319,6 +319,7 @@ void MainWindow::dropEvent(QDropEvent *event)
     }
 }
 
+// Find dialog showing on trigger
 void MainWindow::on_actionFind_triggered()
 {
     QPlainTextEdit* myEditor = MainWindow::currentTextEdit();
@@ -327,13 +328,60 @@ void MainWindow::on_actionFind_triggered()
     fdialog->show();
 }
 
-
-
+// Find Replace dialog showing on trigger
 void MainWindow::on_actionFind_Replace_triggered()
 {
     QPlainTextEdit* myEditor = MainWindow::currentTextEdit();
     FindReplaceDialog *frdialog = new FindReplaceDialog(this);
     frdialog->setEditor(myEditor);
     frdialog->show();
+}
+
+// Undo function
+void MainWindow::on_actionUndo_triggered()
+{
+    if (currentTextEdit()) {
+        currentTextEdit()->undo();
+    }
+}
+
+// Redo function
+void MainWindow::on_actionRedo_triggered()
+{
+    if (currentTextEdit()) {
+        currentTextEdit()->redo();
+    }
+}
+
+
+void MainWindow::on_actionCut_triggered()
+{
+    if (currentTextEdit()) {
+        currentTextEdit()->cut();
+    }
+}
+
+
+void MainWindow::on_actionCopy_triggered()
+{
+    if (currentTextEdit()) {
+        currentTextEdit()->copy();
+    }
+}
+
+
+void MainWindow::on_actionPaste_triggered()
+{
+    if (currentTextEdit()) {
+        currentTextEdit()->paste();
+    }
+}
+
+
+void MainWindow::on_actionDelete_triggered()
+{
+    if (currentTextEdit()) {
+        currentTextEdit()->textCursor().removeSelectedText();
+    }
 }
 

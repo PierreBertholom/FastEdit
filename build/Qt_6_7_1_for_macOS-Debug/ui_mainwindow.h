@@ -31,6 +31,12 @@ public:
     QAction *actionOpen_Folder;
     QAction *actionFind;
     QAction *actionFind_Replace;
+    QAction *actionUndo;
+    QAction *actionRedo;
+    QAction *actionCut;
+    QAction *actionCopy;
+    QAction *actionPaste;
+    QAction *actionDelete;
     QWidget *centralwidget;
     QMenuBar *menubar;
     QMenu *menuFile;
@@ -58,6 +64,18 @@ public:
         actionFind->setObjectName("actionFind");
         actionFind_Replace = new QAction(MainWindow);
         actionFind_Replace->setObjectName("actionFind_Replace");
+        actionUndo = new QAction(MainWindow);
+        actionUndo->setObjectName("actionUndo");
+        actionRedo = new QAction(MainWindow);
+        actionRedo->setObjectName("actionRedo");
+        actionCut = new QAction(MainWindow);
+        actionCut->setObjectName("actionCut");
+        actionCopy = new QAction(MainWindow);
+        actionCopy->setObjectName("actionCopy");
+        actionPaste = new QAction(MainWindow);
+        actionPaste->setObjectName("actionPaste");
+        actionDelete = new QAction(MainWindow);
+        actionDelete->setObjectName("actionDelete");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         MainWindow->setCentralWidget(centralwidget);
@@ -81,6 +99,14 @@ public:
         menuFile->addAction(actionClose_FIle);
         menuFile->addAction(actionSave_File);
         menuFile->addAction(actionSave_As);
+        menuEdit->addAction(actionUndo);
+        menuEdit->addAction(actionRedo);
+        menuEdit->addSeparator();
+        menuEdit->addAction(actionCut);
+        menuEdit->addAction(actionCopy);
+        menuEdit->addAction(actionPaste);
+        menuEdit->addAction(actionDelete);
+        menuEdit->addSeparator();
         menuEdit->addAction(actionFind);
         menuEdit->addAction(actionFind_Replace);
 
@@ -119,7 +145,31 @@ public:
 #endif // QT_CONFIG(shortcut)
         actionFind_Replace->setText(QCoreApplication::translate("MainWindow", "Find Replace", nullptr));
 #if QT_CONFIG(shortcut)
-        actionFind_Replace->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+H", nullptr));
+        actionFind_Replace->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Alt+F", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionUndo->setText(QCoreApplication::translate("MainWindow", "Undo", nullptr));
+#if QT_CONFIG(shortcut)
+        actionUndo->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Z", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionRedo->setText(QCoreApplication::translate("MainWindow", "Redo", nullptr));
+#if QT_CONFIG(shortcut)
+        actionRedo->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Y", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionCut->setText(QCoreApplication::translate("MainWindow", "Cut", nullptr));
+#if QT_CONFIG(shortcut)
+        actionCut->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+X", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionCopy->setText(QCoreApplication::translate("MainWindow", "Copy", nullptr));
+#if QT_CONFIG(shortcut)
+        actionCopy->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+C", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionPaste->setText(QCoreApplication::translate("MainWindow", "Paste", nullptr));
+#if QT_CONFIG(shortcut)
+        actionPaste->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+V", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionDelete->setText(QCoreApplication::translate("MainWindow", "Delete", nullptr));
+#if QT_CONFIG(shortcut)
+        actionDelete->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Backspace", nullptr));
 #endif // QT_CONFIG(shortcut)
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
         menuEdit->setTitle(QCoreApplication::translate("MainWindow", "Edit", nullptr));
