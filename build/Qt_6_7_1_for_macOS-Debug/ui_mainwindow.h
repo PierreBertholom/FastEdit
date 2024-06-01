@@ -37,10 +37,17 @@ public:
     QAction *actionCopy;
     QAction *actionPaste;
     QAction *actionDelete;
+    QAction *actionZoom_in;
+    QAction *actionZoom_out;
+    QAction *actionRestore_Zoom;
+    QAction *actionFont;
+    QAction *actionDefault_format;
     QWidget *centralwidget;
     QMenuBar *menubar;
     QMenu *menuFile;
     QMenu *menuEdit;
+    QMenu *menuView;
+    QMenu *menuFormat;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -76,6 +83,16 @@ public:
         actionPaste->setObjectName("actionPaste");
         actionDelete = new QAction(MainWindow);
         actionDelete->setObjectName("actionDelete");
+        actionZoom_in = new QAction(MainWindow);
+        actionZoom_in->setObjectName("actionZoom_in");
+        actionZoom_out = new QAction(MainWindow);
+        actionZoom_out->setObjectName("actionZoom_out");
+        actionRestore_Zoom = new QAction(MainWindow);
+        actionRestore_Zoom->setObjectName("actionRestore_Zoom");
+        actionFont = new QAction(MainWindow);
+        actionFont->setObjectName("actionFont");
+        actionDefault_format = new QAction(MainWindow);
+        actionDefault_format->setObjectName("actionDefault_format");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         MainWindow->setCentralWidget(centralwidget);
@@ -86,6 +103,10 @@ public:
         menuFile->setObjectName("menuFile");
         menuEdit = new QMenu(menubar);
         menuEdit->setObjectName("menuEdit");
+        menuView = new QMenu(menubar);
+        menuView->setObjectName("menuView");
+        menuFormat = new QMenu(menubar);
+        menuFormat->setObjectName("menuFormat");
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -93,6 +114,8 @@ public:
 
         menubar->addAction(menuFile->menuAction());
         menubar->addAction(menuEdit->menuAction());
+        menubar->addAction(menuView->menuAction());
+        menubar->addAction(menuFormat->menuAction());
         menuFile->addAction(actionNew_File);
         menuFile->addAction(actionOpen_File);
         menuFile->addAction(actionOpen_Folder);
@@ -109,6 +132,11 @@ public:
         menuEdit->addSeparator();
         menuEdit->addAction(actionFind);
         menuEdit->addAction(actionFind_Replace);
+        menuView->addAction(actionRestore_Zoom);
+        menuView->addAction(actionZoom_in);
+        menuView->addAction(actionZoom_out);
+        menuFormat->addAction(actionDefault_format);
+        menuFormat->addAction(actionFont);
 
         retranslateUi(MainWindow);
 
@@ -171,8 +199,24 @@ public:
 #if QT_CONFIG(shortcut)
         actionDelete->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Backspace", nullptr));
 #endif // QT_CONFIG(shortcut)
+        actionZoom_in->setText(QCoreApplication::translate("MainWindow", "Zoom in", nullptr));
+#if QT_CONFIG(shortcut)
+        actionZoom_in->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Shift+=", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionZoom_out->setText(QCoreApplication::translate("MainWindow", "Zoom out", nullptr));
+#if QT_CONFIG(shortcut)
+        actionZoom_out->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+-", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionRestore_Zoom->setText(QCoreApplication::translate("MainWindow", "Default Zoom", nullptr));
+#if QT_CONFIG(shortcut)
+        actionRestore_Zoom->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+\303\200", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionFont->setText(QCoreApplication::translate("MainWindow", "Font", nullptr));
+        actionDefault_format->setText(QCoreApplication::translate("MainWindow", "Default format", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
         menuEdit->setTitle(QCoreApplication::translate("MainWindow", "Edit", nullptr));
+        menuView->setTitle(QCoreApplication::translate("MainWindow", "View", nullptr));
+        menuFormat->setTitle(QCoreApplication::translate("MainWindow", "Format", nullptr));
     } // retranslateUi
 
 };

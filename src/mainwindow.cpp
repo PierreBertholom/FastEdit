@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QFontDialog>
 #include <QList>
 #include <QFontDatabase>
 #include <QMimeData>
@@ -78,6 +79,7 @@ void MainWindow::createTab()
 
     // Setting font for the plain text edit
     QFont font = fileEdit->document()->defaultFont();
+    font.setPointSize(14);
     font.setFamily("Source Code Pro");
     fileEdit->setFont(font);
     // Set tabulation as 4 spaces
@@ -85,7 +87,7 @@ void MainWindow::createTab()
 
     // Label showing lines
     QLabel *status = new QLabel(this);
-    status->setText("Line 1, Column 1");
+    status->setText("Line 1, Column 1, Zoom 100%");
     status->setObjectName("status");
 
     // Empty file + Status bar
@@ -157,6 +159,11 @@ QLabel* MainWindow::currentStatus()
 void MainWindow::on_actionOpen_File_triggered()
 {
     QString filePath = QFileDialog::getOpenFileName(this, "Open the file");
+
+    // No error message when clicking cancel
+    if (filePath.isEmpty()) {
+        return;
+    }
 
     MainWindow::createTab();
     MainWindow::openTabFile(filePath);
@@ -240,7 +247,10 @@ void MainWindow::updateStatus()
     QString line = QString::number(MainWindow::currentTextEdit()->textCursor().blockNumber()+1);
     QString column = QString::number(MainWindow::currentTextEdit()->textCursor().columnNumber()+1);
 
-    QString newStatus = "Line "+ line + ", Column "+ column;
+    int fontSize = currentTextEdit()->font().pointSize();
+    int zoom_status = fontSize*100/14;
+
+    QString newStatus = "Line " + line + ", Column " + column + ", Zoom " + QString::number(zoom_status) +"%";
 
     MainWindow::currentStatus()->setText(newStatus);
 }
@@ -369,7 +379,7 @@ void MainWindow::on_actionCopy_triggered()
     }
 }
 
-
+// Paste function
 void MainWindow::on_actionPaste_triggered()
 {
     if (currentTextEdit()) {
@@ -377,11 +387,60 @@ void MainWindow::on_actionPaste_triggered()
     }
 }
 
-
+// Delete function
 void MainWindow::on_actionDelete_triggered()
 {
     if (currentTextEdit()) {
         currentTextEdit()->textCursor().removeSelectedText();
     }
+}
+
+
+// Font dialog
+void MainWindow::on_actionFont_triggered()
+{
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok, QFont("Source Code Pro", 14), this);
+    if (ok) {
+        // User clicked OK and selected a font
+        //apply it to text
+        currentTextEdit()->setFont(font);
+    }
+    MainWindow::updateStatus();
+}
+
+// Restore format
+void MainWindow::on_actionDefault_format_triggered()
+{
+    QFont defaultFont("Source Code Pro", 14);
+    currentTextEdit()->setFont(defaultFont);
+    MainWindow::updateStatus();
+}
+
+// Zoom in
+void MainWindow::on_actionZoom_in_triggered()
+{
+    currentTextEdit()->zoomIn();
+    m_defaultFontSize = currentTextEdit()->font().pointSizeF();
+    MainWindow::updateStatus();
+}
+
+// Zoom out
+void MainWindow::on_actionZoom_out_triggered()
+{
+    currentTextEdit()->zoomOut();
+    m_defaultFontSize = currentTextEdit()->font().pointSizeF();
+    MainWindow::updateStatus();
+}
+
+// Restore Zoom
+void MainWindow::on_actionRestore_Zoom_triggered()
+{
+
+    QFont font = currentTextEdit()->font();
+    font.setPointSize(14);
+    currentTextEdit()->setFont(font);
+    MainWindow::updateStatus();
+
 }
 

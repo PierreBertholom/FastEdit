@@ -78,6 +78,16 @@ private slots:
 
     void on_actionDelete_triggered();
 
+    void on_actionFont_triggered();
+
+    void on_actionDefault_format_triggered();
+
+    void on_actionZoom_in_triggered();
+
+    void on_actionZoom_out_triggered();
+
+    void on_actionRestore_Zoom_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTabWidget *tabsWidget = new QTabWidget(this);
@@ -90,5 +100,7 @@ private:
 
     FindDialog *findDialog;
     FindReplaceDialog *findReplaceDialog;
+
+    qreal m_defaultFontSize = 10.0;
 };
 #endif // MAINWINDOW_H
