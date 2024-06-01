@@ -353,7 +353,7 @@ void MainWindow::on_actionRedo_triggered()
     }
 }
 
-
+// Cut function
 void MainWindow::on_actionCut_triggered()
 {
     if (currentTextEdit()) {
@@ -361,7 +361,7 @@ void MainWindow::on_actionCut_triggered()
     }
 }
 
-
+// Copy function
 void MainWindow::on_actionCopy_triggered()
 {
     if (currentTextEdit()) {
