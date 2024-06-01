@@ -52,13 +52,21 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../src/main.cpp \
+SOURCES       = ../../src/finddialog.cpp \
+		../../src/findreplacedialog.cpp \
+		../../src/main.cpp \
 		../../src/mainwindow.cpp qrc_resources.cpp \
-		moc_mainwindow.cpp
-OBJECTS       = main.o \
+		moc_mainwindow.cpp \
+		moc_finddialog.cpp \
+		moc_findreplacedialog.cpp
+OBJECTS       = finddialog.o \
+		findreplacedialog.o \
+		main.o \
 		mainwindow.o \
 		qrc_resources.o \
-		moc_mainwindow.o
+		moc_mainwindow.o \
+		moc_finddialog.o \
+		moc_findreplacedialog.o
 DIST          = /Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
 		/Qt/6.7.1/macos/mkspecs/features/device_config.prf \
 		/Qt/6.7.1/macos/mkspecs/common/unix.conf \
@@ -410,7 +418,11 @@ DIST          = /Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
 		/Qt/6.7.1/macos/mkspecs/features/exceptions.prf \
 		/Qt/6.7.1/macos/mkspecs/features/yacc.prf \
 		/Qt/6.7.1/macos/mkspecs/features/lex.prf \
-		../../../../FastEdit.pro ../../headers/mainwindow.h ../../src/main.cpp \
+		../../../../FastEdit.pro ../../headers/mainwindow.h \
+		../../src/finddialog.h \
+		../../src/findreplacedialog.h ../../src/finddialog.cpp \
+		../../src/findreplacedialog.cpp \
+		../../src/main.cpp \
 		../../src/mainwindow.cpp
 QMAKE_TARGET  = FastEdit
 DESTDIR       = 
@@ -1174,8 +1186,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../resources.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../../headers/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../src/main.cpp ../../src/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../headers/mainwindow.h ../../src/finddialog.h ../../src/findreplacedialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../src/finddialog.cpp ../../src/findreplacedialog.cpp ../../src/main.cpp ../../src/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ui/mainwindow.ui $(DISTDIR)/
 
 
@@ -1211,16 +1223,52 @@ qrc_resources.cpp: ../../resources.qrc \
 		../../fonts/SourceCodePro.ttf
 	/Users/pierrebertholom/Qt/6.7.1/macos/libexec/rcc -name resources --no-zstd ../../resources.qrc -o qrc_resources.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_finddialog.cpp moc_findreplacedialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_finddialog.cpp moc_findreplacedialog.cpp
 moc_mainwindow.cpp: ../../headers/mainwindow.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTabWidget \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QPlainTextEdit \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTreeView \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtreeview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QSplitter \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsplitter.h \
+		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/QFileSystemModel \
+		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/qfilesystemmodel.h \
+		../../src/finddialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QRegularExpression \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qregularexpression.h \
+		../../src/findreplacedialog.h \
 		../../../Qt/6.7.1/macos/libexec/moc
 	/Users/pierrebertholom/Qt/6.7.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/pierrebertholom/Qt/6.7.1/macos/mkspecs/macx-clang -I/Users/pierrebertholom/FastEdit -I/Users/pierrebertholom/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers -I/Users/pierrebertholom/Qt/6.7.1/macos/lib/QtGui.framework/Headers -I/Users/pierrebertholom/Qt/6.7.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/pierrebertholom/Qt/6.7.1/macos/lib ../../headers/mainwindow.h -o moc_mainwindow.cpp
+
+moc_finddialog.cpp: ../../src/finddialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QPlainTextEdit \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QRegularExpression \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qregularexpression.h \
+		../../../Qt/6.7.1/macos/libexec/moc
+	/Users/pierrebertholom/Qt/6.7.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/pierrebertholom/Qt/6.7.1/macos/mkspecs/macx-clang -I/Users/pierrebertholom/FastEdit -I/Users/pierrebertholom/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers -I/Users/pierrebertholom/Qt/6.7.1/macos/lib/QtGui.framework/Headers -I/Users/pierrebertholom/Qt/6.7.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/pierrebertholom/Qt/6.7.1/macos/lib ../../src/finddialog.h -o moc_finddialog.cpp
+
+moc_findreplacedialog.cpp: ../../src/findreplacedialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QPlainTextEdit \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QRegularExpression \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qregularexpression.h \
+		../../../Qt/6.7.1/macos/libexec/moc
+	/Users/pierrebertholom/Qt/6.7.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/pierrebertholom/Qt/6.7.1/macos/mkspecs/macx-clang -I/Users/pierrebertholom/FastEdit -I/Users/pierrebertholom/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers -I/Users/pierrebertholom/Qt/6.7.1/macos/lib/QtGui.framework/Headers -I/Users/pierrebertholom/Qt/6.7.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/pierrebertholom/Qt/6.7.1/macos/lib ../../src/findreplacedialog.h -o moc_findreplacedialog.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1245,11 +1293,287 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
+finddialog.o: ../../src/finddialog.cpp ../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QtWidgets \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractscrollarea.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractslider.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qaction.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcolordialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcolormap.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcolumnview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcombobox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcommandlinkbutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcommonstyle.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcompleter.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdatawidgetmapper.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdial.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdialogbuttonbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdockwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdrawutil.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfileiconprovider.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfilesystemmodel.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfocusframe.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfontcombobox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfontdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qformlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qframe.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgesture.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgesturerecognizer.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsanchorlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsgridlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicslayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicslayoutitem.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicslinearlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsproxywidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsscene.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicstransform.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicswidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qheaderview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qitemdelegate.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qitemeditorfactory.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qkeysequenceedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlcdnumber.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlineedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlistview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlistwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmdiarea.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmdisubwindow.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmenu.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmenubar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qprogressbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qproxystyle.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qrhiwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qrubberband.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qscrollarea.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qscrollbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qscroller.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qscrollerproperties.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qshortcut.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsizegrip.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qslider.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qspinbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsplashscreen.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsplitter.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstackedlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstatusbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstyle.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstyleditemdelegate.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstylefactory.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstyleoption.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstylepainter.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstyleplugin.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsystemtrayicon.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtabbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtableview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtextbrowser.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtextedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtoolbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtoolbutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtooltip.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtreeview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtreewidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtreewidgetitemiterator.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qundoview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qwhatsthis.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qwidgetaction.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qwizard.h \
+		../../src/finddialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QPlainTextEdit \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QRegularExpression \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qregularexpression.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o finddialog.o ../../src/finddialog.cpp
+
+findreplacedialog.o: ../../src/findreplacedialog.cpp ../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QtWidgets \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractscrollarea.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractslider.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qaction.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcolordialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcolormap.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcolumnview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcombobox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcommandlinkbutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcommonstyle.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qcompleter.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdatawidgetmapper.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdial.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdialogbuttonbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdockwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdrawutil.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfileiconprovider.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfilesystemmodel.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfocusframe.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfontcombobox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfontdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qformlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qframe.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgesture.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgesturerecognizer.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsanchorlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsgridlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicslayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicslayoutitem.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicslinearlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsproxywidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsscene.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicstransform.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicsview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgraphicswidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qheaderview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qitemdelegate.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qitemeditorfactory.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qkeysequenceedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlcdnumber.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlineedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlistview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlistwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmdiarea.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmdisubwindow.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmenu.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmenubar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qprogressbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qproxystyle.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qrhiwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qrubberband.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qscrollarea.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qscrollbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qscroller.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qscrollerproperties.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qshortcut.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsizegrip.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qslider.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qspinbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsplashscreen.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsplitter.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstackedlayout.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstatusbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstyle.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstyleditemdelegate.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstylefactory.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstyleoption.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstylepainter.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qstyleplugin.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsystemtrayicon.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtabbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtableview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtextbrowser.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtextedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtoolbox.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtoolbutton.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtooltip.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtreeview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtreewidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtreewidgetitemiterator.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qundoview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qwhatsthis.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qwidgetaction.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qwizard.h \
+		../../src/findreplacedialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QPlainTextEdit \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QRegularExpression \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qregularexpression.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o findreplacedialog.o ../../src/findreplacedialog.cpp
+
 main.o: ../../src/main.cpp ../../headers/mainwindow.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTabWidget \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QPlainTextEdit \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTreeView \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtreeview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QSplitter \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsplitter.h \
+		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/QFileSystemModel \
+		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/qfilesystemmodel.h \
+		../../src/finddialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QRegularExpression \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qregularexpression.h \
+		../../src/findreplacedialog.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QApplication \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../src/main.cpp
@@ -1259,13 +1583,39 @@ mainwindow.o: ../../src/mainwindow.cpp ../../headers/mainwindow.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTabWidget \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QPlainTextEdit \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTreeView \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtreeview.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QSplitter \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qsplitter.h \
+		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/QFileSystemModel \
+		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/qfilesystemmodel.h \
+		../../src/finddialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QRegularExpression \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qregularexpression.h \
+		../../src/findreplacedialog.h \
 		ui_mainwindow.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QFrame \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qframe.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QPlainTextEdit \
-		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qplaintextedit.h
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QFileDialog \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QTextStream \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qtextstream.h \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QList \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qlist.h \
+		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/QFontDatabase \
+		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/qfontdatabase.h \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QMimeData \
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qmimedata.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../src/mainwindow.cpp
 
 qrc_resources.o: qrc_resources.cpp 
@@ -1273,6 +1623,12 @@ qrc_resources.o: qrc_resources.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_finddialog.o: moc_finddialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_finddialog.o moc_finddialog.cpp
+
+moc_findreplacedialog.o: moc_findreplacedialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_findreplacedialog.o moc_findreplacedialog.cpp
 
 ####### Install
 

@@ -13,6 +13,8 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , findDialog(new FindDialog(this))
+    , findReplaceDialog(new FindReplaceDialog(this))
 {
     ui->setupUi(this);
 
@@ -316,3 +318,22 @@ void MainWindow::dropEvent(QDropEvent *event)
         event->acceptProposedAction();
     }
 }
+
+void MainWindow::on_actionFind_triggered()
+{
+    QPlainTextEdit* myEditor = MainWindow::currentTextEdit();
+    FindDialog *fdialog = new FindDialog(this);
+    fdialog->setEditor(myEditor);
+    fdialog->show();
+}
+
+
+
+void MainWindow::on_actionFind_Replace_triggered()
+{
+    QPlainTextEdit* myEditor = MainWindow::currentTextEdit();
+    FindReplaceDialog *frdialog = new FindReplaceDialog(this);
+    frdialog->setEditor(myEditor);
+    frdialog->show();
+}
+

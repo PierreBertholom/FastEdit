@@ -8,6 +8,8 @@
 #include <QTreeView>
 #include <QSplitter>
 #include <QFileSystemModel>
+#include "src/finddialog.h"
+#include "src/findreplacedialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -60,6 +62,10 @@ private slots:
 
     void dropEvent(QDropEvent *event) override;
 
+    void on_actionFind_Replace_triggered();
+
+    void on_actionFind_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTabWidget *tabsWidget = new QTabWidget(this);
@@ -69,5 +75,8 @@ private:
     QSplitter *window = new QSplitter(this);
 
     QFileSystemModel *dirModel = new QFileSystemModel(this);
+
+    FindDialog *findDialog;
+    FindReplaceDialog *findReplaceDialog;
 };
 #endif // MAINWINDOW_H
