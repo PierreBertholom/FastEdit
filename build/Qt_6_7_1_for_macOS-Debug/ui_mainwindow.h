@@ -26,6 +26,9 @@ public:
     QAction *actionNew_File;
     QAction *actionClose_FIle;
     QAction *actionOpen_File;
+    QAction *actionSave_File;
+    QAction *actionSave_As;
+    QAction *actionOpen_Folder;
     QWidget *centralwidget;
     QMenuBar *menubar;
     QMenu *menuFile;
@@ -42,6 +45,12 @@ public:
         actionClose_FIle->setObjectName("actionClose_FIle");
         actionOpen_File = new QAction(MainWindow);
         actionOpen_File->setObjectName("actionOpen_File");
+        actionSave_File = new QAction(MainWindow);
+        actionSave_File->setObjectName("actionSave_File");
+        actionSave_As = new QAction(MainWindow);
+        actionSave_As->setObjectName("actionSave_As");
+        actionOpen_Folder = new QAction(MainWindow);
+        actionOpen_Folder->setObjectName("actionOpen_Folder");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         MainWindow->setCentralWidget(centralwidget);
@@ -57,8 +66,11 @@ public:
 
         menubar->addAction(menuFile->menuAction());
         menuFile->addAction(actionNew_File);
-        menuFile->addAction(actionClose_FIle);
         menuFile->addAction(actionOpen_File);
+        menuFile->addAction(actionOpen_Folder);
+        menuFile->addAction(actionClose_FIle);
+        menuFile->addAction(actionSave_File);
+        menuFile->addAction(actionSave_As);
 
         retranslateUi(MainWindow);
 
@@ -80,6 +92,15 @@ public:
 #if QT_CONFIG(shortcut)
         actionOpen_File->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+O", nullptr));
 #endif // QT_CONFIG(shortcut)
+        actionSave_File->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
+#if QT_CONFIG(shortcut)
+        actionSave_File->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+S", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionSave_As->setText(QCoreApplication::translate("MainWindow", "Save As", nullptr));
+#if QT_CONFIG(shortcut)
+        actionSave_As->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Shift+S", nullptr));
+#endif // QT_CONFIG(shortcut)
+        actionOpen_Folder->setText(QCoreApplication::translate("MainWindow", "Open Folder", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
