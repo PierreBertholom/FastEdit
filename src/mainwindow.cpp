@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     , findReplaceDialog(new FindReplaceDialog(this))
 {
     ui->setupUi(this);
+    setWindowTitle("FastEdit");
 
     // Initialization of tabs, centered, movable and closable
     tabsWidget->setMovable(true);
@@ -59,12 +60,34 @@ void MainWindow::on_actionNew_File_triggered()
 // Closing tab with Cmd+W or cross
 void MainWindow::on_actionClose_FIle_triggered()
 {
-    tabsWidget->removeTab(tabsWidget->currentIndex());
+    int index = tabsWidget->currentIndex();
+    MainWindow::closeTab(index);
 }
 
 void MainWindow::closeTab(int index)
 {
-    tabsWidget->removeTab(index);
+    if (!tabsWidget->tabText(tabsWidget->currentIndex()).startsWith("•")){
+        tabsWidget->removeTab(index);
+    } else {
+        QMessageBox msgBox;
+        msgBox.setText("<h4>Do you want to save ?</h4>");
+        msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+        int ret = msgBox.exec();
+
+        switch (ret) {
+        case QMessageBox::Yes:
+            if (tabsWidget->tabToolTip(tabsWidget->currentIndex()) == "Untitled"){
+                MainWindow::on_actionSave_As_triggered();
+            } else {
+                MainWindow::on_actionSave_File_triggered();
+            }
+            tabsWidget->removeTab(index);
+            break;
+        case QMessageBox::No:
+            tabsWidget->removeTab(index);
+            break;
+        }
+    }
 }
 
 // Create a new tab
@@ -109,13 +132,18 @@ void MainWindow::createTab()
 // Open a file with text or property ReadOnly
 void MainWindow::openTabFile(QString filePath)
 {
+    // Avoid error message when clicking cancel
+    if (filePath.isEmpty()) {
+        return;
+    }
+
     // Get filename from path
     QFile file(filePath);
     QFileInfo fileName(filePath);
 
-    // Check if it can be opened
-    if(!file.open(QIODevice::ReadOnly | QFile::Text)){
-        QMessageBox::warning(this, "Warning", "Cannot open file : " + file.errorString());
+    // Check if the file can be opened
+    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
         return;
     }
 
@@ -128,8 +156,9 @@ void MainWindow::openTabFile(QString filePath)
     MainWindow::currentTextEdit()->setPlainText(text);
 
     file.close();
-    tabsWidget->setTabText(tabsWidget->currentIndex(),fileName.fileName());
+    tabsWidget->setTabText(tabsWidget->currentIndex(), fileName.fileName());
 }
+
 
 // Return the current edited text
 QPlainTextEdit* MainWindow::currentTextEdit()
@@ -165,6 +194,13 @@ void MainWindow::on_actionOpen_File_triggered()
         return;
     }
 
+    for (int i = 0; i < tabsWidget->count(); ++i) {
+        if (tabsWidget->tabToolTip(i) == filePath) {
+            // File is already open, switch to the corresponding tab
+            tabsWidget->setCurrentIndex(i);
+            return;
+        }
+    }
     MainWindow::createTab();
     MainWindow::openTabFile(filePath);
 }
@@ -289,9 +325,18 @@ void MainWindow::openTreeViewFile(QModelIndex index)
         return; // Ignore directories
     }
 
-    MainWindow::createTab();
     QString filePath = dirModel->fileInfo(index).absoluteFilePath();
 
+    // If file is already opened
+    for (int i = 0; i < tabsWidget->count(); ++i) {
+        if (tabsWidget->tabToolTip(i) == filePath) {
+            // File is already open, switch to the corresponding tab
+            tabsWidget->setCurrentIndex(i);
+            return;
+        }
+    }
+
+    MainWindow::createTab();
     MainWindow::openTabFile(filePath);
 }
 

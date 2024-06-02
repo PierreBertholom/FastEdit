@@ -114,6 +114,9 @@
    <property name="text">
     <string>Open Folder</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+O</string>
+   </property>
   </action>
   <action name="actionFind">
    <property name="text">

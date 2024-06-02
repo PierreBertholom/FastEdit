@@ -167,6 +167,9 @@ public:
         actionSave_As->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Shift+S", nullptr));
 #endif // QT_CONFIG(shortcut)
         actionOpen_Folder->setText(QCoreApplication::translate("MainWindow", "Open Folder", nullptr));
+#if QT_CONFIG(shortcut)
+        actionOpen_Folder->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Alt+O", nullptr));
+#endif // QT_CONFIG(shortcut)
         actionFind->setText(QCoreApplication::translate("MainWindow", "Find", nullptr));
 #if QT_CONFIG(shortcut)
         actionFind->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+F", nullptr));
