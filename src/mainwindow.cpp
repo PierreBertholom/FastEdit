@@ -10,6 +10,8 @@
 #include <QList>
 #include <QFontDatabase>
 #include <QMimeData>
+#include <QLabel>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -46,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     QFontDatabase::addApplicationFont(":/fonts/SourceCodePro.ttf");
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -66,17 +69,19 @@ void MainWindow::on_actionClose_FIle_triggered()
 
 void MainWindow::closeTab(int index)
 {
-    if (!tabsWidget->tabText(tabsWidget->currentIndex()).startsWith("•")){
+    if (!tabsWidget->tabText(index).startsWith("•")) {
         tabsWidget->removeTab(index);
     } else {
         QMessageBox msgBox;
-        msgBox.setText("<h4>Do you want to save ?</h4>");
-        msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+        msgBox.setText("<h4>Do you want to save?</h4>");
+        msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Yes);
         int ret = msgBox.exec();
 
         switch (ret) {
         case QMessageBox::Yes:
-            if (tabsWidget->tabToolTip(tabsWidget->currentIndex()) == "Untitled"){
+            tabsWidget->setCurrentIndex(index);  // Make sure to switch to the tab we want to save
+            if (tabsWidget->tabToolTip(index) == "Untitled") {
                 MainWindow::on_actionSave_As_triggered();
             } else {
                 MainWindow::on_actionSave_File_triggered();
@@ -86,9 +91,18 @@ void MainWindow::closeTab(int index)
         case QMessageBox::No:
             tabsWidget->removeTab(index);
             break;
+        case QMessageBox::Cancel:
+            // If the user cancels, return false to indicate the operation was canceled
+            return;
         }
     }
+/*
+    if (tabsWidget->count() == 0) {
+        showNoTabsLabel();
+    }
+*/
 }
+
 
 // Create a new tab
 void MainWindow::createTab()
@@ -190,19 +204,20 @@ void MainWindow::on_actionOpen_File_triggered()
     QString filePath = QFileDialog::getOpenFileName(this, "Open the file");
 
     // No error message when clicking cancel
-    if (filePath.isEmpty()) {
-        return;
-    }
-
-    for (int i = 0; i < tabsWidget->count(); ++i) {
-        if (tabsWidget->tabToolTip(i) == filePath) {
-            // File is already open, switch to the corresponding tab
-            tabsWidget->setCurrentIndex(i);
-            return;
+    if (!filePath.isEmpty()) {
+        for (int i = 0; i < tabsWidget->count(); ++i) {
+            if (tabsWidget->tabToolTip(i) == filePath) {
+                // File is already open, switch to the corresponding tab
+                tabsWidget->setCurrentIndex(i);
+                return;
+            }
         }
+        if (tabsWidget->count() == 1 && tabsWidget->tabToolTip(0) == "Untitled" && MainWindow::currentTextEdit()->toPlainText().isEmpty()) {
+            tabsWidget->removeTab(0);
+        }
+        MainWindow::createTab();
+        MainWindow::openTabFile(filePath);
     }
-    MainWindow::createTab();
-    MainWindow::openTabFile(filePath);
 }
 
 // Add • to unsaved and modified files
@@ -295,6 +310,9 @@ void MainWindow::on_actionOpen_Folder_triggered()
 {
     QString dirPath = QFileDialog::getExistingDirectory(this, "Open Folder", "/", QFileDialog::ShowDirsOnly);
     if (!dirPath.isEmpty()) {
+        if (tabsWidget->count() == 1 && tabsWidget->tabToolTip(0) == "Untitled" && MainWindow::currentTextEdit()->toPlainText().isEmpty()) {
+            tabsWidget->removeTab(0);
+        }
         openFolder(dirPath);
     }
 }
@@ -304,6 +322,8 @@ void MainWindow::openFolder(const QString &dirPath)
     if (dirPath.isEmpty()) {
         return;
     }
+
+    currentFolderPath = dirPath;
 
     dirModel->setRootPath(dirPath);
     treeView->setModel(dirModel);
@@ -316,6 +336,8 @@ void MainWindow::openFolder(const QString &dirPath)
     // Set minimum and maximum dimension
     treeView->setMinimumWidth(width() * 20 / 100);
     treeView->setMaximumWidth(width() * 30 / 100);
+
+    treeView->show();
 }
 
 
@@ -488,4 +510,38 @@ void MainWindow::on_actionRestore_Zoom_triggered()
     MainWindow::updateStatus();
 
 }
+
+
+void MainWindow::on_actionClose_Folder_triggered()
+{
+    if (currentFolderPath.isEmpty()) {
+        return;
+    }
+
+    bool cancelled = false;  // To track if the user cancels the close operation
+
+    // Loop through all open tabs and close files that are in the current folder
+    for (int i = tabsWidget->count() - 1; i >= 0 && !cancelled; --i) {
+        QString filePath = tabsWidget->tabToolTip(i);
+        if (filePath.startsWith(currentFolderPath)) {
+            int originalCount = tabsWidget->count();
+            closeTab(i);
+            if (tabsWidget->count() == originalCount) {
+                // closeTab didn't remove the tab, meaning the user canceled
+                cancelled = true;
+            }
+        }
+    }
+
+    if (!cancelled) {
+        // Clear the file tree view
+        treeView->setModel(nullptr);
+        treeView->hide();
+
+        // Reset the current folder path
+        currentFolderPath.clear();
+        createTab();
+    }
+}
+
 

@@ -1610,12 +1610,16 @@ mainwindow.o: ../../src/mainwindow.cpp ../../headers/mainwindow.h \
 		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QTextStream \
 		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qtextstream.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QFontDialog \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qfontdialog.h \
 		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QList \
 		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qlist.h \
 		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/QFontDatabase \
 		../../../Qt/6.7.1/macos/lib/QtGui.framework/Headers/qfontdatabase.h \
 		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/QMimeData \
-		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qmimedata.h
+		../../../Qt/6.7.1/macos/lib/QtCore.framework/Headers/qmimedata.h \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QPushButton \
+		../../../Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qpushbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../src/mainwindow.cpp
 
 qrc_resources.o: qrc_resources.cpp 

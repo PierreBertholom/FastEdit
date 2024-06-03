@@ -30,9 +30,12 @@
     <addaction name="actionNew_File"/>
     <addaction name="actionOpen_File"/>
     <addaction name="actionOpen_Folder"/>
-    <addaction name="actionClose_FIle"/>
+    <addaction name="separator"/>
     <addaction name="actionSave_File"/>
     <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose_FIle"/>
+    <addaction name="actionClose_Folder"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -187,7 +190,7 @@
     <string>Zoom in</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+=</string>
+    <string>Ctrl+=</string>
    </property>
   </action>
   <action name="actionZoom_out">
@@ -214,6 +217,14 @@
   <action name="actionDefault_format">
    <property name="text">
     <string>Default format</string>
+   </property>
+  </action>
+  <action name="actionClose_Folder">
+   <property name="text">
+    <string>Close Folder</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+W</string>
    </property>
   </action>
  </widget>

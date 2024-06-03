@@ -88,6 +88,8 @@ private slots:
 
     void on_actionRestore_Zoom_triggered();
 
+    void on_actionClose_Folder_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTabWidget *tabsWidget = new QTabWidget(this);
@@ -102,5 +104,6 @@ private:
     FindReplaceDialog *findReplaceDialog;
 
     qreal m_defaultFontSize = 10.0;
+    QString currentFolderPath;
 };
 #endif // MAINWINDOW_H

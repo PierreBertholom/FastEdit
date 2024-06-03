@@ -42,6 +42,7 @@ public:
     QAction *actionRestore_Zoom;
     QAction *actionFont;
     QAction *actionDefault_format;
+    QAction *actionClose_Folder;
     QWidget *centralwidget;
     QMenuBar *menubar;
     QMenu *menuFile;
@@ -93,6 +94,8 @@ public:
         actionFont->setObjectName("actionFont");
         actionDefault_format = new QAction(MainWindow);
         actionDefault_format->setObjectName("actionDefault_format");
+        actionClose_Folder = new QAction(MainWindow);
+        actionClose_Folder->setObjectName("actionClose_Folder");
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         MainWindow->setCentralWidget(centralwidget);
@@ -119,9 +122,12 @@ public:
         menuFile->addAction(actionNew_File);
         menuFile->addAction(actionOpen_File);
         menuFile->addAction(actionOpen_Folder);
-        menuFile->addAction(actionClose_FIle);
+        menuFile->addSeparator();
         menuFile->addAction(actionSave_File);
         menuFile->addAction(actionSave_As);
+        menuFile->addSeparator();
+        menuFile->addAction(actionClose_FIle);
+        menuFile->addAction(actionClose_Folder);
         menuEdit->addAction(actionUndo);
         menuEdit->addAction(actionRedo);
         menuEdit->addSeparator();
@@ -204,7 +210,7 @@ public:
 #endif // QT_CONFIG(shortcut)
         actionZoom_in->setText(QCoreApplication::translate("MainWindow", "Zoom in", nullptr));
 #if QT_CONFIG(shortcut)
-        actionZoom_in->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Shift+=", nullptr));
+        actionZoom_in->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+=", nullptr));
 #endif // QT_CONFIG(shortcut)
         actionZoom_out->setText(QCoreApplication::translate("MainWindow", "Zoom out", nullptr));
 #if QT_CONFIG(shortcut)
@@ -216,6 +222,10 @@ public:
 #endif // QT_CONFIG(shortcut)
         actionFont->setText(QCoreApplication::translate("MainWindow", "Font", nullptr));
         actionDefault_format->setText(QCoreApplication::translate("MainWindow", "Default format", nullptr));
+        actionClose_Folder->setText(QCoreApplication::translate("MainWindow", "Close Folder", nullptr));
+#if QT_CONFIG(shortcut)
+        actionClose_Folder->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+Alt+W", nullptr));
+#endif // QT_CONFIG(shortcut)
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
         menuEdit->setTitle(QCoreApplication::translate("MainWindow", "Edit", nullptr));
         menuView->setTitle(QCoreApplication::translate("MainWindow", "View", nullptr));
