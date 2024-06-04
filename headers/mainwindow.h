@@ -90,6 +90,8 @@ private slots:
 
     void on_actionClose_Folder_triggered();
 
+    void updateTabStatus();
+
 private:
     Ui::MainWindow *ui;
     QTabWidget *tabsWidget = new QTabWidget(this);
@@ -105,5 +107,6 @@ private:
 
     qreal m_defaultFontSize = 10.0;
     QString currentFolderPath;
+    QLabel *noTabsLabel;
 };
 #endif // MAINWINDOW_H

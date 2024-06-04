@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , findDialog(new FindDialog(this))
     , findReplaceDialog(new FindReplaceDialog(this))
+    , noTabsLabel(new QLabel("No tabs open", this))  // Initialize the label
 {
     ui->setupUi(this);
     setWindowTitle("FastEdit");
@@ -36,8 +37,16 @@ MainWindow::MainWindow(QWidget *parent)
     treeView->setDragDropMode(QAbstractItemView::DragDrop);
     treeView->setDropIndicatorShown(true);
 
+    // Add treeView and tabsWidget to the layout
     window->addWidget(treeView);
     window->addWidget(tabsWidget);
+
+    // Initialize noTabsLabel
+    noTabsLabel->setAlignment(Qt::AlignCenter);
+    noTabsLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    // Add the label directly to the central widget
+    window->addWidget(noTabsLabel);
 
     // Close file with cross
     connect(tabsWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
@@ -46,18 +55,33 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Import font
     QFontDatabase::addApplicationFont(":/fonts/SourceCodePro.ttf");
-}
 
+    // Update tab status
+    updateTabStatus();
+}
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+// Update status to show or hide "No tabs" label
+void MainWindow::updateTabStatus()
+{
+    if (tabsWidget->count() == 0) {
+        tabsWidget->hide();
+        noTabsLabel->show();
+    } else {
+        noTabsLabel->hide();
+        tabsWidget->show();
+    }
+}
+
 // Create a new tab with empty file
 void MainWindow::on_actionNew_File_triggered()
 {
     MainWindow::createTab();
+    updateTabStatus();
 }
 
 // Closing tab with Cmd+W or cross
@@ -65,8 +89,10 @@ void MainWindow::on_actionClose_FIle_triggered()
 {
     int index = tabsWidget->currentIndex();
     MainWindow::closeTab(index);
+    updateTabStatus();
 }
 
+// Closing tab function
 void MainWindow::closeTab(int index)
 {
     if (!tabsWidget->tabText(index).startsWith("•")) {
@@ -96,11 +122,11 @@ void MainWindow::closeTab(int index)
             return;
         }
     }
-/*
+
     if (tabsWidget->count() == 0) {
-        showNoTabsLabel();
+        updateTabStatus();
     }
-*/
+
 }
 
 
@@ -217,6 +243,7 @@ void MainWindow::on_actionOpen_File_triggered()
         }
         MainWindow::createTab();
         MainWindow::openTabFile(filePath);
+        updateTabStatus();
     }
 }
 
@@ -313,6 +340,7 @@ void MainWindow::on_actionOpen_Folder_triggered()
         if (tabsWidget->count() == 1 && tabsWidget->tabToolTip(0) == "Untitled" && MainWindow::currentTextEdit()->toPlainText().isEmpty()) {
             tabsWidget->removeTab(0);
         }
+        updateTabStatus();
         openFolder(dirPath);
     }
 }
@@ -346,7 +374,6 @@ void MainWindow::openTreeViewFile(QModelIndex index)
     if (!dirModel->fileInfo(index).isFile()) {
         return; // Ignore directories
     }
-
     QString filePath = dirModel->fileInfo(index).absoluteFilePath();
 
     // If file is already opened
@@ -360,6 +387,7 @@ void MainWindow::openTreeViewFile(QModelIndex index)
 
     MainWindow::createTab();
     MainWindow::openTabFile(filePath);
+    updateTabStatus();
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)

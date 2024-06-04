@@ -79,7 +79,8 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "on_actionZoom_in_triggered",
     "on_actionZoom_out_triggered",
     "on_actionRestore_Zoom_triggered",
-    "on_actionClose_Folder_triggered"
+    "on_actionClose_Folder_triggered",
+    "updateTabStatus"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -92,7 +93,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      32,   14, // methods
+      33,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -100,38 +101,39 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  206,    2, 0x08,    1 /* Private */,
-       3,    0,  207,    2, 0x08,    2 /* Private */,
-       4,    1,  208,    2, 0x08,    3 /* Private */,
-       6,    0,  211,    2, 0x08,    5 /* Private */,
-       7,    0,  212,    2, 0x08,    6 /* Private */,
-       8,    1,  213,    2, 0x08,    7 /* Private */,
-      10,    0,  216,    2, 0x08,    9 /* Private */,
-      12,    0,  217,    2, 0x08,   10 /* Private */,
-      14,    0,  218,    2, 0x08,   11 /* Private */,
-      15,    0,  219,    2, 0x08,   12 /* Private */,
-      16,    0,  220,    2, 0x08,   13 /* Private */,
-      17,    0,  221,    2, 0x08,   14 /* Private */,
-      18,    0,  222,    2, 0x08,   15 /* Private */,
-      19,    1,  223,    2, 0x08,   16 /* Private */,
-      21,    1,  226,    2, 0x08,   18 /* Private */,
-      23,    1,  229,    2, 0x08,   20 /* Private */,
-      26,    1,  232,    2, 0x08,   22 /* Private */,
-      28,    1,  235,    2, 0x08,   24 /* Private */,
-      30,    0,  238,    2, 0x08,   26 /* Private */,
-      31,    0,  239,    2, 0x08,   27 /* Private */,
-      32,    0,  240,    2, 0x08,   28 /* Private */,
-      33,    0,  241,    2, 0x08,   29 /* Private */,
-      34,    0,  242,    2, 0x08,   30 /* Private */,
-      35,    0,  243,    2, 0x08,   31 /* Private */,
-      36,    0,  244,    2, 0x08,   32 /* Private */,
-      37,    0,  245,    2, 0x08,   33 /* Private */,
-      38,    0,  246,    2, 0x08,   34 /* Private */,
-      39,    0,  247,    2, 0x08,   35 /* Private */,
-      40,    0,  248,    2, 0x08,   36 /* Private */,
-      41,    0,  249,    2, 0x08,   37 /* Private */,
-      42,    0,  250,    2, 0x08,   38 /* Private */,
-      43,    0,  251,    2, 0x08,   39 /* Private */,
+       1,    0,  212,    2, 0x08,    1 /* Private */,
+       3,    0,  213,    2, 0x08,    2 /* Private */,
+       4,    1,  214,    2, 0x08,    3 /* Private */,
+       6,    0,  217,    2, 0x08,    5 /* Private */,
+       7,    0,  218,    2, 0x08,    6 /* Private */,
+       8,    1,  219,    2, 0x08,    7 /* Private */,
+      10,    0,  222,    2, 0x08,    9 /* Private */,
+      12,    0,  223,    2, 0x08,   10 /* Private */,
+      14,    0,  224,    2, 0x08,   11 /* Private */,
+      15,    0,  225,    2, 0x08,   12 /* Private */,
+      16,    0,  226,    2, 0x08,   13 /* Private */,
+      17,    0,  227,    2, 0x08,   14 /* Private */,
+      18,    0,  228,    2, 0x08,   15 /* Private */,
+      19,    1,  229,    2, 0x08,   16 /* Private */,
+      21,    1,  232,    2, 0x08,   18 /* Private */,
+      23,    1,  235,    2, 0x08,   20 /* Private */,
+      26,    1,  238,    2, 0x08,   22 /* Private */,
+      28,    1,  241,    2, 0x08,   24 /* Private */,
+      30,    0,  244,    2, 0x08,   26 /* Private */,
+      31,    0,  245,    2, 0x08,   27 /* Private */,
+      32,    0,  246,    2, 0x08,   28 /* Private */,
+      33,    0,  247,    2, 0x08,   29 /* Private */,
+      34,    0,  248,    2, 0x08,   30 /* Private */,
+      35,    0,  249,    2, 0x08,   31 /* Private */,
+      36,    0,  250,    2, 0x08,   32 /* Private */,
+      37,    0,  251,    2, 0x08,   33 /* Private */,
+      38,    0,  252,    2, 0x08,   34 /* Private */,
+      39,    0,  253,    2, 0x08,   35 /* Private */,
+      40,    0,  254,    2, 0x08,   36 /* Private */,
+      41,    0,  255,    2, 0x08,   37 /* Private */,
+      42,    0,  256,    2, 0x08,   38 /* Private */,
+      43,    0,  257,    2, 0x08,   39 /* Private */,
+      44,    0,  258,    2, 0x08,   40 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -152,6 +154,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void, 0x80000000 | 24,   25,
     QMetaType::Void, 0x80000000 | 27,   25,
     QMetaType::Void, 0x80000000 | 29,   25,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -249,6 +252,8 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_actionRestore_Zoom_triggered'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_actionClose_Folder_triggered'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'updateTabStatus'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -294,6 +299,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 29: _t->on_actionZoom_out_triggered(); break;
         case 30: _t->on_actionRestore_Zoom_triggered(); break;
         case 31: _t->on_actionClose_Folder_triggered(); break;
+        case 32: _t->updateTabStatus(); break;
         default: ;
         }
     }
@@ -318,13 +324,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 32)
+        if (_id < 33)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 32;
+        _id -= 33;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 32)
+        if (_id < 33)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 32;
+        _id -= 33;
     }
     return _id;
 }

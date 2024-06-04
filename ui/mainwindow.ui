@@ -83,7 +83,7 @@
   </action>
   <action name="actionClose_FIle">
    <property name="text">
-    <string>Close FIle</string>
+    <string>Close File</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+W</string>

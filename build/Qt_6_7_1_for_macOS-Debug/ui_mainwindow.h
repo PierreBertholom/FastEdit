@@ -156,7 +156,7 @@ public:
 #if QT_CONFIG(shortcut)
         actionNew_File->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+N", nullptr));
 #endif // QT_CONFIG(shortcut)
-        actionClose_FIle->setText(QCoreApplication::translate("MainWindow", "Close FIle", nullptr));
+        actionClose_FIle->setText(QCoreApplication::translate("MainWindow", "Close File", nullptr));
 #if QT_CONFIG(shortcut)
         actionClose_FIle->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+W", nullptr));
 #endif // QT_CONFIG(shortcut)
