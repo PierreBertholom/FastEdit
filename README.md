@@ -66,29 +66,31 @@ The Format menu allows you to change the font or return to the default format se
 
 ## Shortcuts
 
+For macOS users, use `CMD` instead of `CTRL` and `OPT` instead of `ALT`.
+
 ### File Menu
-- **New File**: `CTRL+N`
-- **Open File**: `CTRL+O`
-- **Open Folder**: `CTRL+ALT+O`
-- **Save**: `CTRL+S`
-- **Save As**: `CTRL+SHIFT+S`
-- **Close File**: `CTRL+W`
-- **Close Folder**: `CTRL+ALT+W`
+- **New File**: `CTRL+N` (`CMD+N`)
+- **Open File**: `CTRL+O` (`CMD+O`)
+- **Open Folder**: `CTRL+ALT+O` (`CMD+OPT+O`)
+- **Save**: `CTRL+S` (`CMD+S`)
+- **Save As**: `CTRL+SHIFT+S` (`CMD+SHIFT+S`)
+- **Close File**: `CTRL+W` (`CMD+W`)
+- **Close Folder**: `CTRL+ALT+W` (`CMD+OPT+W`)
 
 ### Edit Menu
-- **Undo**: `CTRL+Z`
-- **Redo**: `CTRL+Y`
-- **Cut**: `CTRL+X`
-- **Copy**: `CTRL+C`
-- **Paste**: `CTRL+V`
-- **Delete**: `CTRL+BACKSPACE`
-- **Find**: `CTRL+F`
-- **Find Replace**: `CTRL+ALT+F`
+- **Undo**: `CTRL+Z` (`CMD+Z`)
+- **Redo**: `CTRL+Y` (`CMD+Y`)
+- **Cut**: `CTRL+X` (`CMD+X`)
+- **Copy**: `CTRL+C` (`CMD+C`)
+- **Paste**: `CTRL+V` (`CMD+V`)
+- **Delete**: `CTRL+BACKSPACE` (`CMD+BACKSPACE`)
+- **Find**: `CTRL+F` (`CMD+F`)
+- **Find Replace**: `CTRL+ALT+F` (`CMD+OPT+F`)
 
 ### View Menu
-- **Default Zoom**: `CTRL+0`
-- **Zoom in**: `CTRL + =`
-- **Zoom out**: `CTRL + -`
+- **Default Zoom**: `CTRL+0` (`CMD+0`)
+- **Zoom in**: `CTRL + =` (`CMD + =`)
+- **Zoom out**: `CTRL + -` (`CMD + -`)
 
 ---
 
