@@ -1220,6 +1220,8 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../../resources.qrc \
 		../../../Qt/6.7.1/macos/libexec/rcc \
+		../../image/icon.ico \
+		../../image/icon_x.icns \
 		../../fonts/SourceCodePro.ttf
 	/Users/pierrebertholom/Qt/6.7.1/macos/libexec/rcc -name resources --no-zstd ../../resources.qrc -o qrc_resources.cpp
 

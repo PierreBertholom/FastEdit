@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>fonts/SourceCodePro.ttf</file>
+        <file>image/icon.ico</file>
+        <file>image/icon_x.icns</file>
     </qresource>
 </RCC>
